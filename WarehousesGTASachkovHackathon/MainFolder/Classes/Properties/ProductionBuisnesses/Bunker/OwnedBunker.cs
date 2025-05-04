@@ -38,7 +38,7 @@ namespace WarehousesGTASachkovHackathon.MainFolder.Classes.Properties.Production
         }
         public override int CaltulateSellMoney(SellDistance sellDistance)
         {
-            return SellingBunkerStockSiteSellingBunkerStockSite.CalculateMoneyFromSale(Stocks.Product, sellDistance, Upgrades);
+            return SellingBunkerStockSite.CalculateMoneyFromSale(Stocks.Product, sellDistance, Upgrades);
         }
 
         protected override void AssertOrganizationLeader()

@@ -30,6 +30,7 @@ namespace WarehousesGTASachkovHackathon.MainFolder.Classes.Properties.Production
             Owner = owner;
             Stocks = StocksProductionLogicFactory.CreateByMCType(productionBuisness.Type);
             Upgrades = new MCProductionUpgrades(productionBuisness.Type);
+            Type = productionBuisness.Type;
         }
         public OwnedMCProductionBuisness(string name, int price, Player owner, MCProductionUpgrades upgrades)
             : base(name, price, owner, upgrades)
@@ -37,6 +38,7 @@ namespace WarehousesGTASachkovHackathon.MainFolder.Classes.Properties.Production
             Owner = owner;
             Stocks = StocksProductionLogicFactory.CreateByMCType(upgrades.Type);
             Upgrades = upgrades;
+            Type = upgrades.Type;
         }
 
         public override int CaltulateSellMoney(SellDistance sellDistance)

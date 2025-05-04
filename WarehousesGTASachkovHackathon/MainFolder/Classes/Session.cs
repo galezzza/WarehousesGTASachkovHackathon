@@ -10,6 +10,8 @@ namespace WarehousesGTASachkovHackathon.MainFolder.Classes
     {
         public static PlayersContainer PlayersContainer { get; set; }
 
+        public static int TimeRatio = 300;
+
         public Session()
         {
             PlayersContainer = new PlayersContainer();

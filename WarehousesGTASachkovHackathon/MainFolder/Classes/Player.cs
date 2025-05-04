@@ -12,7 +12,7 @@ namespace WarehousesGTASachkovHackathon.MainFolder.Classes
         private readonly List<IOrganization> _organizations;
         public IReadOnlyList<IOrganization> Organizations => _organizations.AsReadOnly();
 
-        private PlayerProperties Properties { get; } = new PlayerProperties();
+        public PlayerProperties Properties { get; } = new PlayerProperties();
 
         public IOwnedProperty BuyNewProperty(IProperty property)
         {
@@ -22,9 +22,10 @@ namespace WarehousesGTASachkovHackathon.MainFolder.Classes
                 Properties.AddProperty(owndedProperty);
                 Money.SubtractMoney(property.Price);
             }
-            catch
+            catch (Exception e)
             {
                 owndedProperty = null;
+                Console.WriteLine(e.Message);
             }
             return owndedProperty;
         }
@@ -47,9 +48,6 @@ namespace WarehousesGTASachkovHackathon.MainFolder.Classes
                 { 
                     throw new InvalidOperationException("Another organization is already active!");
                 }
-
-            Console.WriteLine(_organizations.OfType<T>);  
-
             target.Activate();
         }
 

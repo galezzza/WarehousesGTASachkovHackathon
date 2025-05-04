@@ -14,35 +14,39 @@ namespace WarehousesGTASachkovHackathon.MainFolder.Classes.Properties.Nightclub.
         {
             return type switch
             {
-                NCProductionBuisnessType.CargoAndShipments => 5 * numberOfFloors,
-                NCProductionBuisnessType.SportingGoods => 5 * numberOfFloors,
-                NCProductionBuisnessType.SouthAmericanImports => 5 * numberOfFloors,
-                NCProductionBuisnessType.PharmacauticalResearch => 5 * numberOfFloors,
-                NCProductionBuisnessType.OrganicProduce => 5 * numberOfFloors,
-                NCProductionBuisnessType.PrintingAndCopying => 5 * numberOfFloors,
-                NCProductionBuisnessType.CashCreation => 5 * numberOfFloors,
+                NCProductionBuisnessType.CargoAndShipments => 10 * numberOfFloors,
+                NCProductionBuisnessType.SportingGoods => 20 * numberOfFloors,
+                NCProductionBuisnessType.SouthAmericanImports => 2 * numberOfFloors,
+                NCProductionBuisnessType.PharmacauticalResearch => 4 * numberOfFloors,
+                NCProductionBuisnessType.OrganicProduce => 16 * numberOfFloors,
+                NCProductionBuisnessType.PrintingAndCopying => 12 * numberOfFloors,
+                NCProductionBuisnessType.CashCreation => 8 * numberOfFloors,
                 _ => throw new ArgumentException("Unknown buisness type.", nameof(type))
             };
         }
         public static TimeSpan GetProductionTimePerCrateFromNCTypeAndUpgrades
             (NCProductionBuisnessType type, bool isEquipmentUpgraded)
         {
-            int timeRate = 5;
-            if ( isEquipmentUpgraded)
+            
+            return type switch
+            {
+                NCProductionBuisnessType.CargoAndShipments => TimeSpan.FromMinutes(CalculateProductionSpeed(140, isEquipmentUpgraded)),
+                NCProductionBuisnessType.SportingGoods => TimeSpan.FromMinutes(CalculateProductionSpeed(80, isEquipmentUpgraded)),
+                NCProductionBuisnessType.SouthAmericanImports => TimeSpan.FromMinutes(CalculateProductionSpeed(240, isEquipmentUpgraded)),
+                NCProductionBuisnessType.PharmacauticalResearch => TimeSpan.FromMinutes(CalculateProductionSpeed(120, isEquipmentUpgraded)),
+                NCProductionBuisnessType.OrganicProduce => TimeSpan.FromMinutes(CalculateProductionSpeed(40, isEquipmentUpgraded)),
+                NCProductionBuisnessType.PrintingAndCopying => TimeSpan.FromMinutes(CalculateProductionSpeed(30, isEquipmentUpgraded)),
+                NCProductionBuisnessType.CashCreation => TimeSpan.FromMinutes(CalculateProductionSpeed(60, isEquipmentUpgraded)),
+                _ => throw new ArgumentException("Unknown warehouse name.", nameof(type))
+            };
+        }
+        public static int CalculateProductionSpeed(int timeRate, bool isEquipmentUpgraded)
+        {
+            if (isEquipmentUpgraded)
             {
                 timeRate = timeRate / 2;
             }
-            return type switch
-            {
-                NCProductionBuisnessType.CargoAndShipments => TimeSpan.FromSeconds(timeRate),
-                NCProductionBuisnessType.SportingGoods => TimeSpan.FromSeconds(timeRate),
-                NCProductionBuisnessType.SouthAmericanImports => TimeSpan.FromSeconds(timeRate),
-                NCProductionBuisnessType.PharmacauticalResearch => TimeSpan.FromSeconds(timeRate),
-                NCProductionBuisnessType.OrganicProduce => TimeSpan.FromSeconds(timeRate),
-                NCProductionBuisnessType.PrintingAndCopying => TimeSpan.FromSeconds(timeRate),
-                NCProductionBuisnessType.CashCreation => TimeSpan.FromSeconds(timeRate),
-                _ => throw new ArgumentException("Unknown warehouse name.", nameof(type))
-            };
+            return timeRate;
         }
     }
 }

@@ -87,17 +87,17 @@ namespace WarehousesGTASachkovHackathon.MainFolder.Classes.Properties
         }
         private void AddVehicleWarehouse(OwnedVehicleWarehouse warehouse)
         {
-            if (_warehouseProperties.Count >= MAX_VEHICLE_WAREHOUSES)
+            if (_vehicleWarehouseProperties.Count >= MAX_VEHICLE_WAREHOUSES)
                 throw new InvalidOperationException("Maximum number of vehicle warehouses reached.");
-            if (_warehouseProperties.Any(w => w.Name == warehouse.Name))
+            if (_vehicleWarehouseProperties.Any(w => w.Name == warehouse.Name))
                 throw new InvalidOperationException("Vehicle Warehouse with this name already exists.");
             _vehicleWarehouseProperties.Add(warehouse);
         }
         private void AddBunker(OwnedBunker bunker)
         {
-            if (_warehouseProperties.Count >= MAX_BUNKERS)
+            if (_bunkerProperties.Count >= MAX_BUNKERS)
                 throw new InvalidOperationException("Maximum number of bunkers reached.");
-            if (_warehouseProperties.Any(w => w.Name == bunker.Name))
+            if (_bunkerProperties.Any(w => w.Name == bunker.Name))
                 throw new InvalidOperationException("Bunker with this name already exists.");
             _bunkerProperties.Add(bunker);
             MakeNightclubPropertyAvailable(NCProductionBuisnessType.SportingGoods);
@@ -105,10 +105,10 @@ namespace WarehousesGTASachkovHackathon.MainFolder.Classes.Properties
 
         private void AddMC(OwnedMCProductionBuisness productionBuisness)
         {
-            if (_warehouseProperties.Any(w => w.GetType() == productionBuisness.GetType()))
+            if (_propertiesOfMC.Any(w => w.GetType() == productionBuisness.GetType()))
                 throw new InvalidOperationException($"You already have {productionBuisness.GetType()}.");
 
-            if (_warehouseProperties.Any(w => w.Name == productionBuisness.Name))
+            if (_propertiesOfMC.Any(w => w.Name == productionBuisness.Name))
                 throw new InvalidOperationException("Warehouse with this name already exists.");
             _propertiesOfMC.Add(productionBuisness);
 
@@ -118,19 +118,21 @@ namespace WarehousesGTASachkovHackathon.MainFolder.Classes.Properties
 
         private void AddHangar(OwnedHangar hangar)
         {
-            if (_warehouseProperties.Count >= MAX_HANGARS)
+            if (_hangarsProperties.Count >= MAX_HANGARS)
                 throw new InvalidOperationException("Maximum number of hangars reached.");
-            if (_warehouseProperties.Any(w => w.Name == hangar.Name))
+            if (_hangarsProperties.Any(w => w.Name == hangar.Name))
                 throw new InvalidOperationException("Hangar with this name already exists.");
             _hangarsProperties.Add(hangar);
         }
         private void AddNightClub(OwnedNightclub nightClub)
         {
-            if (_warehouseProperties.Count >= MAX_NIGHT_CLUBS)
+            if (_nightClubProperties.Count >= MAX_NIGHT_CLUBS)
                 throw new InvalidOperationException("Maximum number of Night clubs reached.");
-            if (_warehouseProperties.Any(w => w.Name == nightClub.Name))
+            if (_nightClubProperties.Any(w => w.Name == nightClub.Name))
                 throw new InvalidOperationException("Night club with this name already exists.");
             _nightClubProperties.Add(nightClub);
+
+            MakeNightclubPropertyAvailable();
         }
 
         private void MakeNightclubPropertyAvailable(NCProductionBuisnessType type)
@@ -141,6 +143,31 @@ namespace WarehousesGTASachkovHackathon.MainFolder.Classes.Properties
                 if (ownedNightclub != null)
                 {
                     ownedNightclub.MakeBuisnessAvailableByType(type);
+                }
+            }
+        }
+        private void MakeNightclubPropertyAvailable()
+        {
+            if (_nightClubProperties.Count != 0)
+            {
+                OwnedNightclub? ownedNightclub = _nightClubProperties.FirstOrDefault();
+                if (ownedNightclub != null)
+                {
+                    if(_warehouseProperties.Count > 0)
+                    {
+                        ownedNightclub.MakeBuisnessAvailableByType(NCProductionBuisnessType.CargoAndShipments);
+                    }
+                    if (_bunkerProperties.Count > 0)
+                    {
+                        ownedNightclub.MakeBuisnessAvailableByType(NCProductionBuisnessType.SportingGoods);
+                    }
+                    if (_propertiesOfMC.Count > 0)
+                    {
+                        foreach (var mc in _propertiesOfMC)
+                        {
+                            ownedNightclub.MakeBuisnessAvailableByType(ConvertMNTypeIntoNCType(mc.Type));
+                        }
+                    }
                 }
             }
         }

@@ -114,13 +114,13 @@ namespace WarehousesGTASachkovHackathon.MainFolder.Classes.Properties.Nightclub.
         {
             return type switch
             {
-                NCProductionBuisnessType.CargoAndShipments => CargoAndShipments,
-                NCProductionBuisnessType.SportingGoods => SportingGoods,
-                NCProductionBuisnessType.SouthAmericanImports => SouthAmericanImports,
-                NCProductionBuisnessType.PharmacauticalResearch => PharmacauticalResearch,
-                NCProductionBuisnessType.OrganicProduce => OrganicProduce,
-                NCProductionBuisnessType.PrintingAndCopying => PrintingAndCopying,
-                NCProductionBuisnessType.CashCreation => CashCreation,
+                NCProductionBuisnessType.CargoAndShipments => this.CargoAndShipments,
+                NCProductionBuisnessType.SportingGoods => this.SportingGoods,
+                NCProductionBuisnessType.SouthAmericanImports => this.SouthAmericanImports,
+                NCProductionBuisnessType.PharmacauticalResearch => this.PharmacauticalResearch,
+                NCProductionBuisnessType.OrganicProduce => this.OrganicProduce,
+                NCProductionBuisnessType.PrintingAndCopying => this.PrintingAndCopying,
+                NCProductionBuisnessType.CashCreation => this.CashCreation,
                 _ => throw new ArgumentOutOfRangeException("Invalid business type.")
             };
         }

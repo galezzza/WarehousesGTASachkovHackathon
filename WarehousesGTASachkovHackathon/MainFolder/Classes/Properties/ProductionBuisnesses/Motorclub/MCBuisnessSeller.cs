@@ -11,7 +11,7 @@ namespace WarehousesGTASachkovHackathon.MainFolder.Classes.Properties.Production
     {
         public void Buy(MCBuisnessType type, MCBuisnessLocations location, Player buyer)
         {
-            var buisnessFactory = MCBuisnessFactory.CreateByTypeAndLocation(location, type);
+            MCProductionBuisness buisnessFactory = MCBuisnessFactory.CreateByTypeAndLocation(location, type);
             buyer.BuyNewProperty(buisnessFactory);
         }
     }

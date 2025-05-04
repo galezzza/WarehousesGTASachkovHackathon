@@ -53,7 +53,7 @@
                     break;
 
                 default:
-                    throw new ArgumentException("Unknown business type.", nameof(type));
+                    throw new ArgumentException("Unknown business type.");
             }
         }
     }

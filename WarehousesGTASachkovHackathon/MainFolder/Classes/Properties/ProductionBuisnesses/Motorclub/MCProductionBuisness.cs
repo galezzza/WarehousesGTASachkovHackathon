@@ -10,13 +10,12 @@ namespace WarehousesGTASachkovHackathon.MainFolder.Classes.Properties.Production
 {
     public abstract class MCProductionBuisness : ProductionBuisness
     {
-        public string Name { get; }
-        public int Price { get; }
         public MCBuisnessType Type { get; private set; }
 
         protected MCProductionBuisness(string name, int price, MCBuisnessType type)
             : base(name, price)
         {
+            Type = type;
         }
     }
 }

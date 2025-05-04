@@ -7,6 +7,11 @@
         public TimeSpan ProductionTimePerCrate { get; private set; }
         public bool IsAvailable { get; private set; } = false;
 
+        private Thread? productionThread;
+        private bool isProducing = false;
+        private readonly object _lock = new object();
+
+
         public NCProductionBuisness(NCProductionBuisnessType type, int numberOfFloors, NightclubUpgrades upgrade)
         {
             Capacity = NCProductionBuisnessFactory.GetCapacityFromNCTypeAndNofFloors(type, numberOfFloors);
@@ -49,12 +54,33 @@
 
         public void ProduceCrate()
         {
-            CurrentLoad = Capacity;
+            if (isProducing)
+                return;
+
+            isProducing = true;
+            productionThread = new Thread(() =>
+            {
+                while (true)
+                {
+                    lock (_lock)
+                    {
+                        if (!isProducing || CurrentLoad >= Capacity)
+                            break;
+                        CurrentLoad++;
+                    }
+
+                    Thread.Sleep(ProductionTimePerCrate / Session.TimeRatio);
+                }
+                isProducing = false;
+            });
+
+            productionThread.IsBackground = true;
+            productionThread.Start();
         }
 
         public void StopProducing()
         {
-
+            isProducing = false;
         }
 
         public void ReduceSomeProduct(int amount)
