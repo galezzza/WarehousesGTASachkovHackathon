@@ -11,13 +11,16 @@ namespace WarehousesGTASachkovHackathon.MainFolder.Classes.Organizations
     {
         public string Name { get; } = "Motoclub";
         public bool IsActive { get; private set; } = false;
+        public int NumberOfEmployees { get; private set; }
         public void Activate()
         {
             IsActive = true;
+            NumberOfEmployees = 1;
         }
         public void Deactivate()
         {
             IsActive = false;
+            NumberOfEmployees = 0;
         }
     }
 }

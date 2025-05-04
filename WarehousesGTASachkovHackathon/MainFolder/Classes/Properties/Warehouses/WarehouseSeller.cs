@@ -22,7 +22,12 @@ namespace WarehousesGTASachkovHackathon.MainFolder.Classes.Properties.Warehouses
             if (!_catalog.Contains(name))
                 throw new InvalidOperationException("Warehouse is not available for sale.");
 
-            var warehouse = WarehouseFactory.CreateByName(name);
+            Warehouse warehouse = WarehouseFactory.CreateByName(name);
+            buyer.BuyNewProperty(warehouse);
+        }
+        public void Buy(Player buyer, WarehouseType type)
+        {
+            var warehouse = WarehouseFactory.CreateRandomByType(type);
             buyer.BuyNewProperty(warehouse);
         }
     }

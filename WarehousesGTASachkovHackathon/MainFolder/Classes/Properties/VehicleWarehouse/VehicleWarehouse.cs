@@ -8,7 +8,7 @@ using WarehousesGTASachkovHackathon.MainFolder.Interfaces;
 
 namespace WarehousesGTASachkovHackathon.MainFolder.Classes.Properties.VehicleWarehouse
 {
-    class VehicleWarehouse : IProperty
+    public class VehicleWarehouse : IProperty
     {   
         public string Name { get; }
         public int Price { get; }

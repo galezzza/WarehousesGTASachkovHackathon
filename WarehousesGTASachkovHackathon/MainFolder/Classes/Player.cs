@@ -17,8 +17,15 @@ namespace WarehousesGTASachkovHackathon.MainFolder.Classes
         public IOwnedProperty BuyNewProperty(IProperty property)
         {
             var owndedProperty = property.AddOwner(this);
-            Properties.AddProperty(owndedProperty);
-            Money.SubtractMoney(property.Price);
+            try
+            {
+                Properties.AddProperty(owndedProperty);
+                Money.SubtractMoney(property.Price);
+            }
+            catch
+            {
+                owndedProperty = null;
+            }
             return owndedProperty;
         }
 

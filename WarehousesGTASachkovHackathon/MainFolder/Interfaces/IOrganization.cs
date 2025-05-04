@@ -4,6 +4,7 @@
     {
         string Name { get; }
         bool IsActive { get; }
+        int NumberOfEmployees { get; }
         void Activate();
         void Deactivate();
     }

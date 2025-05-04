@@ -13,7 +13,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WarehousesGTASachkovHackathon.MainFolder.Classes.Properties.VehicleWarehouse
 {
-    class OwnedVehicleWarehouse : VehicleWarehouse, IOwnedProperty
+    public class OwnedVehicleWarehouse : VehicleWarehouse, IOwnedProperty
     {
         public int TOTAL_TOP_CARS { get; } = 12;
         public int TOTAL_MID_CARS { get; } = 10;
